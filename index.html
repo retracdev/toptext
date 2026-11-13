@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toptext · retrac.space</title>
+  <meta name="description" content="Put words on any picture. Captions, stickers, frames and deep-fried effects. Part of the retrac.space collection.">
+  <meta name="theme-color" content="#07060d">
+  <meta property="og:title" content="Toptext">
+  <meta property="og:description" content="Put words on any picture. Part of the retrac.space collection.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/bagel-fat-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bangers&family=Bebas+Neue&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Creepster&family=DM+Serif+Display&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Icons from Lucide (ISC License, Copyright (c) Lucide Icons and Contributors), plus a few drawn for Toptext. -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+    <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/><path d="M5 2l.6 1.4L7 4l-1.4.6L5 6l-.6-1.4L3 4l1.4-.6z"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 8h18"/><path d="M3 16h18"/></symbol>
+    <symbol id="i-start" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/><rect width="18" height="18" x="3" y="3" rx="4"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5 5.5 5.5 0 0 1-5.5 5.5H11"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5 5.5 5.5 0 0 0 9.5 20H13"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-dice" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="3"/><path d="M8 8h.01"/><path d="M16 8h.01"/><path d="M12 12h.01"/><path d="M8 16h.01"/><path d="M16 16h.01"/></symbol>
+    <symbol id="i-flip-h" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M8 7 3 12l5 5z"/><path d="m16 7 5 5-5 5z"/></symbol>
+    <symbol id="i-flip-v" viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M7 8l5-5 5 5z"/><path d="m7 16 5 5 5-5z"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-rotate-l" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+    <symbol id="i-stack" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></symbol>
+    <symbol id="i-align-left" viewBox="0 0 24 24"><path d="M21 6H3"/><path d="M15 12H3"/><path d="M17 18H3"/></symbol>
+    <symbol id="i-align-center" viewBox="0 0 24 24"><path d="M21 6H3"/><path d="M17 12H7"/><path d="M19 18H5"/></symbol>
+    <symbol id="i-align-right" viewBox="0 0 24 24"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M21 18H7"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="m2 2 20 20"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></symbol>
+    <symbol id="i-center" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-new" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 12v6"/><path d="M9 15h6"/></symbol>
+    <symbol id="i-loader" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <a class="topbar__logo" href="https://retrac.space">
+      <img src="assets/retrac-space-logo.png" alt="retrac.space" width="168" height="26">
+    </a>
+    <div class="topbar__actions">
+      <button class="pillbtn" id="shortcutsOpen" type="button" aria-haspopup="dialog">
+        <svg class="ico" aria-hidden="true"><use href="#i-keyboard"/></svg>
+        <span>Shortcuts</span>
+      </button>
+      <button class="pillbtn pillbtn--stack" id="stackOpen" type="button" aria-haspopup="dialog">
+        <svg class="ico" aria-hidden="true"><use href="#i-stack"/></svg>
+        <span>Your Stack</span>
+        <span class="pillbtn__count" id="stackCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__floaters" id="heroFloaters" aria-hidden="true"></div>
+    <h1 class="title">
+      <span class="sr-only">Toptext</span>
+      <span class="title__art" id="titleArt" aria-hidden="true"></span>
+    </h1>
+    <p class="hero__tag">Put words on any picture. Make it <em>funny</em>.</p>
+    <p class="hero__badge"><span>NEW</span> Brand new on retrac.space</p>
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon__track" id="ribbonTrack"></div>
+    </div>
+  </section>
+
+  <main class="studio" id="studio">
+    <section class="stagecol" aria-label="Picture">
+      <div class="toolbar" role="toolbar" aria-label="Edit">
+        <div class="toolbar__group">
+          <button class="tool" id="undo" type="button" title="Undo (Ctrl+Z)" disabled><svg class="ico" aria-hidden="true"><use href="#i-undo"/></svg><span class="sr-only">Undo</span></button>
+          <button class="tool" id="redo" type="button" title="Redo (Ctrl+Shift+Z)" disabled><svg class="ico" aria-hidden="true"><use href="#i-redo"/></svg><span class="sr-only">Redo</span></button>
+        </div>
+        <div class="toolbar__group">
+          <button class="tool tool--label" id="addText" type="button" title="Add words (T)"><svg class="ico" aria-hidden="true"><use href="#i-type"/></svg><span>Words</span></button>
+          <button class="tool tool--label" id="addSticker" type="button" title="Add a sticker"><svg class="ico" aria-hidden="true"><use href="#i-smile"/></svg><span>Sticker</span></button>
+          <button class="tool tool--label tool--dice" id="dice" type="button" title="Roll random captions (R)"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg><span>Roll</span></button>
+        </div>
+        <div class="toolbar__group">
+          <button class="tool" id="newDoc" type="button" title="Start over"><svg class="ico" aria-hidden="true"><use href="#i-new"/></svg><span class="sr-only">Start over</span></button>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <div class="stage__boot" id="boot" aria-hidden="true">
+          <div class="boot__letters"><span>T</span><span>O</span><span>P</span></div>
+          <p id="bootLine">Warming up the letters…</p>
+        </div>
+
+        <div class="stage__empty" id="empty" hidden>
+          <div class="empty__art" aria-hidden="true">
+            <div class="empty__card empty__card--a">🖼️</div>
+            <div class="empty__card empty__card--b">😂</div>
+            <div class="empty__card empty__card--c"><b>TOP TEXT</b></div>
+          </div>
+          <h2 class="empty__title">Drop a picture here</h2>
+          <p class="empty__text">Or paste one with <kbd>Ctrl</kbd> <kbd>V</kbd>. Nothing leaves your device.</p>
+          <div class="empty__actions">
+            <button class="key3d key3d--pink" id="pickFile" type="button">
+              <span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg>Choose a picture</span>
+            </button>
+            <button class="key3d key3d--quiet" id="emptyStarters" type="button">
+              <span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-sparkles"/></svg>Try a starter</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="board" id="board" hidden>
+          <canvas id="canvas" width="1080" height="1080" aria-label="Your picture"></canvas>
+          <div class="overlay" id="overlay">
+            <div class="guide guide--v" id="guideV" hidden></div>
+            <div class="guide guide--h" id="guideH" hidden></div>
+            <div class="sel" id="sel" hidden>
+              <button class="sel__del" id="selDelete" type="button" title="Delete (Del)"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg><span class="sr-only">Delete layer</span></button>
+              <span class="sel__handle sel__handle--rot" data-handle="rotate" title="Rotate"></span>
+              <span class="sel__handle sel__handle--scale" data-handle="scale" title="Resize"></span>
+              <span class="sel__handle sel__handle--wr" data-handle="width" title="Width"></span>
+              <span class="sel__handle sel__handle--wl" data-handle="width" title="Width"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage__busy" id="busy" hidden>
+          <svg class="ico spin" aria-hidden="true"><use href="#i-loader"/></svg>
+          <span id="busyLabel">Frying…</span>
+        </div>
+        <div class="stage__drop" id="dropVeil" hidden><span>Drop it like it's hot 🔥</span></div>
+      </div>
+
+      <div class="exportbar">
+        <button class="key3d key3d--big key3d--pink" id="download" type="button">
+          <span class="key3d__face">
+            <svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>
+            <span>Download</span>
+          </span>
+        </button>
+        <div class="segmented" role="radiogroup" aria-label="File type">
+          <button type="button" role="radio" aria-checked="true" data-format="png">PNG</button>
+          <button type="button" role="radio" aria-checked="false" data-format="jpeg">JPG</button>
+        </div>
+        <div class="exportbar__more">
+          <button class="key3d key3d--small" id="copyImage" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg>Copy</span></button>
+          <button class="key3d key3d--small" id="shareImage" type="button" hidden><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-share"/></svg>Share</span></button>
+          <button class="key3d key3d--small" id="saveStack" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-bookmark"/></svg>Save</span></button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel" aria-label="Tools">
+      <nav class="tabs" role="tablist" aria-label="Tools">
+        <button class="tab" role="tab" type="button" data-tab="start" aria-selected="true"><svg class="ico" aria-hidden="true"><use href="#i-start"/></svg><span>Start</span></button>
+        <button class="tab" role="tab" type="button" data-tab="words" aria-selected="false"><svg class="ico" aria-hidden="true"><use href="#i-type"/></svg><span>Words</span></button>
+        <button class="tab" role="tab" type="button" data-tab="stickers" aria-selected="false"><svg class="ico" aria-hidden="true"><use href="#i-smile"/></svg><span>Stickers</span></button>
+        <button class="tab" role="tab" type="button" data-tab="effects" aria-selected="false"><svg class="ico" aria-hidden="true"><use href="#i-sparkles"/></svg><span>Effects</span></button>
+        <button class="tab" role="tab" type="button" data-tab="layout" aria-selected="false"><svg class="ico" aria-hidden="true"><use href="#i-layout"/></svg><span>Layout</span></button>
+      </nav>
+
+      <!-- Start -->
+      <div class="tabpanel" role="tabpanel" data-panel="start">
+        <button class="dropzone" id="dropzone" type="button">
+          <svg class="ico" aria-hidden="true"><use href="#i-image"/></svg>
+          <span class="dropzone__title">Choose a picture</span>
+          <span class="dropzone__text">or drag one in, or paste it</span>
+        </button>
+        <button class="linkbtn" id="pasteImage" type="button"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg>Paste from clipboard</button>
+
+        <h3 class="panel__heading">Starters <span>Painted fresh, no picture needed</span></h3>
+        <div class="starters" id="starters"></div>
+
+        <h3 class="panel__heading">Blank canvas</h3>
+        <div class="blank">
+          <div class="swatches" id="blankColors"></div>
+          <div class="blank__sizes" id="blankSizes"></div>
+        </div>
+      </div>
+
+      <!-- Words -->
+      <div class="tabpanel" role="tabpanel" data-panel="words" hidden>
+        <div class="row row--wrap">
+          <button class="key3d key3d--small key3d--teal" id="wordsAdd" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>Add words</span></button>
+          <button class="key3d key3d--small key3d--gold" id="wordsDice" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg>Roll captions</span></button>
+        </div>
+        <h3 class="panel__heading">Layers <span>Top of the list draws on top</span></h3>
+        <ol class="layers" id="layers"></ol>
+        <p class="layers__empty" id="layersEmpty">Nothing here yet. Add some words or a sticker.</p>
+
+        <div class="inspector" id="inspector" hidden>
+          <!-- Text controls -->
+          <div class="insp" data-for="text">
+            <label class="field">
+              <span class="field__label">Words</span>
+              <textarea id="textInput" rows="2" spellcheck="true" placeholder="Type something funny"></textarea>
+            </label>
+            <div class="field">
+              <span class="field__label">Font</span>
+              <div class="fonts" id="fonts"></div>
+            </div>
+            <div class="field">
+              <span class="field__label">Fill</span>
+              <div class="swatches" id="fillSwatches"></div>
+            </div>
+            <div class="field">
+              <span class="field__label">Outline</span>
+              <div class="swatches swatches--small" id="strokeSwatches"></div>
+            </div>
+            <div class="sliders">
+              <label class="slider"><span>Size</span><input type="range" data-prop="size" min="0.015" max="0.3" step="0.001"><output></output></label>
+              <label class="slider"><span>Outline</span><input type="range" data-prop="strokeW" min="0" max="0.4" step="0.005"><output></output></label>
+              <label class="slider"><span>Spacing</span><input type="range" data-prop="spacing" min="-0.05" max="0.4" step="0.005"><output></output></label>
+              <label class="slider"><span>Lines</span><input type="range" data-prop="lineHeight" min="0.8" max="2" step="0.01"><output></output></label>
+            </div>
+            <div class="row row--wrap">
+              <div class="segmented segmented--icons" role="radiogroup" aria-label="Alignment" id="alignGroup">
+                <button type="button" role="radio" data-align="left" aria-checked="false" title="Left"><svg class="ico" aria-hidden="true"><use href="#i-align-left"/></svg><span class="sr-only">Left</span></button>
+                <button type="button" role="radio" data-align="center" aria-checked="true" title="Center"><svg class="ico" aria-hidden="true"><use href="#i-align-center"/></svg><span class="sr-only">Center</span></button>
+                <button type="button" role="radio" data-align="right" aria-checked="false" title="Right"><svg class="ico" aria-hidden="true"><use href="#i-align-right"/></svg><span class="sr-only">Right</span></button>
+              </div>
+              <button class="toggle" id="capsToggle" type="button" aria-pressed="true">ALL CAPS</button>
+            </div>
+            <div class="field">
+              <span class="field__label">Effect</span>
+              <div class="chips" id="effectChips"></div>
+            </div>
+            <div class="field">
+              <span class="field__label">Background</span>
+              <div class="chips" id="boxChips"></div>
+              <div class="swatches swatches--small" id="boxSwatches"></div>
+            </div>
+          </div>
+
+          <!-- Sticker and picture controls -->
+          <div class="insp" data-for="sticker">
+            <div class="field">
+              <span class="field__label">Swap sticker</span>
+              <div class="mini-emoji" id="swapEmoji"></div>
+            </div>
+          </div>
+          <div class="insp" data-for="graphic">
+            <div class="sliders">
+              <label class="slider"><span>Size</span><input type="range" data-prop="size" min="0.03" max="1.2" step="0.005"><output></output></label>
+            </div>
+            <div class="row row--wrap">
+              <button class="toggle" id="flipLayer" type="button" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-flip-h"/></svg>Mirror</button>
+              <button class="toggle" id="shadowLayer" type="button" aria-pressed="false">Drop shadow</button>
+            </div>
+          </div>
+
+          <!-- Shared -->
+          <div class="sliders">
+            <label class="slider"><span>Tilt</span><input type="range" data-prop="rot" min="-180" max="180" step="1"><output></output></label>
+            <label class="slider"><span>Opacity</span><input type="range" data-prop="opacity" min="0.05" max="1" step="0.01"><output></output></label>
+          </div>
+          <div class="row row--wrap">
+            <button class="minibtn" id="layerCenter" type="button"><svg class="ico" aria-hidden="true"><use href="#i-center"/></svg>Center</button>
+            <button class="minibtn" id="layerDuplicate" type="button"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button>
+            <button class="minibtn minibtn--danger" id="layerDelete" type="button"><svg class="ico" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stickers -->
+      <div class="tabpanel" role="tabpanel" data-panel="stickers" hidden>
+        <div class="chips chips--scroll" id="stickerCats"></div>
+        <div class="stickers" id="stickerGrid"></div>
+        <button class="linkbtn" id="addPicture" type="button"><svg class="ico" aria-hidden="true"><use href="#i-image"/></svg>Add your own picture as a sticker</button>
+      </div>
+
+      <!-- Effects -->
+      <div class="tabpanel" role="tabpanel" data-panel="effects" hidden>
+        <h3 class="panel__heading">Looks</h3>
+        <div class="presets" id="presets"></div>
+        <h3 class="panel__heading">Fine tune <button class="linkbtn linkbtn--inline" id="resetFilters" type="button"><svg class="ico" aria-hidden="true"><use href="#i-reset"/></svg>Reset</button></h3>
+        <div class="sliders" id="filterSliders"></div>
+        <h3 class="panel__heading">Turn and flip</h3>
+        <div class="row row--wrap">
+          <button class="minibtn" id="rotL" type="button"><svg class="ico" aria-hidden="true"><use href="#i-rotate-l"/></svg>Left</button>
+          <button class="minibtn" id="rotR" type="button"><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg>Right</button>
+          <button class="minibtn" id="flipH" type="button"><svg class="ico" aria-hidden="true"><use href="#i-flip-h"/></svg>Mirror</button>
+          <button class="minibtn" id="flipV" type="button"><svg class="ico" aria-hidden="true"><use href="#i-flip-v"/></svg>Upside down</button>
+        </div>
+      </div>
+
+      <!-- Layout -->
+      <div class="tabpanel" role="tabpanel" data-panel="layout" hidden>
+        <div class="layouts" id="layouts"></div>
+        <div class="framectl" id="frameCtl">
+          <h3 class="panel__heading">Frame color</h3>
+          <div class="swatches" id="frameColors"></div>
+          <div class="sliders">
+            <label class="slider"><span>Frame size</span><input type="range" id="frameSize" min="0.08" max="0.6" step="0.01"><output></output></label>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <p>Toptext is part of the <a href="https://retrac.space">retrac.space</a> collection. Your pictures never leave your device.</p>
+  </footer>
+
+  <!-- Stack -->
+  <dialog class="sheet" id="stackDialog" aria-labelledby="stackTitle">
+    <div class="sheet__head">
+      <h2 id="stackTitle">Your Stack</h2>
+      <button class="tool" type="button" data-close title="Close"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg><span class="sr-only">Close</span></button>
+    </div>
+    <p class="sheet__sub">Every download lands here, saved in this browser. Open one to keep editing.</p>
+    <div class="stackgrid" id="stackGrid"></div>
+    <p class="stack__empty" id="stackEmpty">Your stack is empty. Download something and it shows up here.</p>
+  </dialog>
+
+  <!-- Shortcuts -->
+  <dialog class="sheet sheet--small" id="shortcutsDialog" aria-labelledby="shortcutsTitle">
+    <div class="sheet__head">
+      <h2 id="shortcutsTitle">Shortcuts</h2>
+      <button class="tool" type="button" data-close title="Close"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg><span class="sr-only">Close</span></button>
+    </div>
+    <dl class="keys">
+      <dt><kbd>T</kbd></dt><dd>Add words</dd>
+      <dt><kbd>R</kbd></dt><dd>Roll random captions</dd>
+      <dt><kbd>Ctrl</kbd> <kbd>V</kbd></dt><dd>Paste a picture</dd>
+      <dt><kbd>Ctrl</kbd> <kbd>Z</kbd></dt><dd>Undo</dd>
+      <dt><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>Z</kbd></dt><dd>Redo</dd>
+      <dt><kbd>Ctrl</kbd> <kbd>D</kbd></dt><dd>Duplicate layer</dd>
+      <dt><kbd>Ctrl</kbd> <kbd>S</kbd></dt><dd>Download</dd>
+      <dt><kbd>Del</kbd></dt><dd>Delete layer</dd>
+      <dt><kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd></dt><dd>Nudge (hold Shift for more)</dd>
+      <dt><kbd>Double-click</kbd></dt><dd>Edit words</dd>
+      <dt><kbd>Esc</kbd></dt><dd>Deselect</dd>
+    </dl>
+  </dialog>
+
+  <!-- Export -->
+  <div class="cooking" id="cooking" hidden>
+    <div class="cooking__card" role="status" aria-live="polite">
+      <div class="cooking__print">
+        <div class="cooking__slot"></div>
+        <img class="cooking__paper" id="cookingThumb" alt="">
+      </div>
+      <p class="cooking__line" id="cookingLine">Kerning the punchline…</p>
+      <div class="cooking__bar"><span id="cookingBar"></span></div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+  <input type="file" id="fileInput" accept="image/*" hidden>
+  <input type="file" id="pictureInput" accept="image/*" hidden>
+
+  <noscript><p class="noscript">Toptext needs JavaScript turned on.</p></noscript>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
