@@ -1,9 +1,9 @@
 // Static content for Toptext: fonts, colors, stickers, caption ideas, effect presets, layouts and starters.
 
-// The Toptext print-shop inks: [color, darker edge].
+// Toptext's sherbet-and-sky colors: [color, darker edge].
 export const INKS = [
-  ['#ffe14d', '#b89a00'], ['#ff4a3d', '#a8221a'], ['#3d7bff', '#1d47b8'],
-  ['#2fe0a0', '#11946a'], ['#ff8a1f', '#b35400'], ['#f5efe0', '#a39b8a'],
+  ['#ff6f61', '#c2392d'], ['#ffad42', '#c46f0c'], ['#ffe066', '#b8960f'],
+  ['#4cc9ff', '#1886b8'], ['#7b7bff', '#3d3dc4'], ['#ff6fb5', '#bf3577'],
 ];
 
 // `family` is what the canvas draws with. Fonts from Google load on first use.
