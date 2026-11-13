@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Toptext · retrac.space</title>
   <meta name="description" content="Put words on any picture. Captions, stickers, frames and deep-fried effects. Part of the retrac.space collection.">
-  <meta name="theme-color" content="#07060d">
+  <meta name="theme-color" content="#0e0d0b">
   <meta property="og:title" content="Toptext">
   <meta property="og:description" content="Put words on any picture. Part of the retrac.space collection.">
   <meta property="og:type" content="website">
@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/bagel-fat-one-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bangers&family=Bebas+Neue&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Creepster&family=DM+Serif+Display&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Archivo+Black&family=Bangers&family=Bebas+Neue&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Creepster&family=DM+Serif+Display&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -78,6 +78,7 @@
     <h1 class="title">
       <span class="sr-only">Toptext</span>
       <span class="title__art" id="titleArt" aria-hidden="true"></span>
+      <span class="title__stamp" aria-hidden="true">Caption<br>studio</span>
     </h1>
     <p class="hero__tag">Put words on any picture. Make it <em>funny</em>.</p>
     <p class="hero__badge"><span>NEW</span> Brand new on retrac.space</p>
@@ -118,7 +119,7 @@
           <h2 class="empty__title">Drop a picture here</h2>
           <p class="empty__text">Or paste one with <kbd>Ctrl</kbd> <kbd>V</kbd>. Nothing leaves your device.</p>
           <div class="empty__actions">
-            <button class="key3d key3d--pink" id="pickFile" type="button">
+            <button class="key3d key3d--primary" id="pickFile" type="button">
               <span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg>Choose a picture</span>
             </button>
             <button class="key3d key3d--quiet" id="emptyStarters" type="button">
@@ -150,7 +151,7 @@
       </div>
 
       <div class="exportbar">
-        <button class="key3d key3d--big key3d--pink" id="download" type="button">
+        <button class="key3d key3d--big key3d--primary" id="download" type="button">
           <span class="key3d__face">
             <svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>
             <span>Download</span>
@@ -199,8 +200,8 @@
       <!-- Words -->
       <div class="tabpanel" role="tabpanel" data-panel="words" hidden>
         <div class="row row--wrap">
-          <button class="key3d key3d--small key3d--teal" id="wordsAdd" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>Add words</span></button>
-          <button class="key3d key3d--small key3d--gold" id="wordsDice" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg>Roll captions</span></button>
+          <button class="key3d key3d--small key3d--mint" id="wordsAdd" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>Add words</span></button>
+          <button class="key3d key3d--small key3d--blue" id="wordsDice" type="button"><span class="key3d__face"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg>Roll captions</span></button>
         </div>
         <h3 class="panel__heading">Layers <span>Top of the list draws on top</span></h3>
         <ol class="layers" id="layers"></ol>

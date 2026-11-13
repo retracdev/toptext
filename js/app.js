@@ -1,6 +1,6 @@
 // Toptext: put words on pictures.
 import {
-  CANDY, FONTS, SOLIDS, GRADIENTS, EFFECTS, BOXES, STICKERS, CAPTIONS, FILTER_DEFAULTS,
+  INKS, FONTS, SOLIDS, GRADIENTS, EFFECTS, BOXES, STICKERS, CAPTIONS, FILTER_DEFAULTS,
   FILTER_SLIDERS, PRESETS, LAYOUTS, FRAME_COLORS, BLANK_SIZES, LOADING_LINES, RIBBON_WORDS,
 } from './data.js';
 import { geometry, processPicture, compose, storeCenter, fontString, loadImage } from './render.js';
@@ -669,8 +669,8 @@ function buildInspector() {
     const b = el('button', 'chip', bx.label);
     b.type = 'button';
     b.dataset.box = bx.id;
-    b.style.setProperty('--chip', '#35d6c8');
-    b.style.setProperty('--chip-side', '#12877c');
+    b.style.setProperty('--chip', '#2fe0a0');
+    b.style.setProperty('--chip-side', '#11946a');
     b.addEventListener('click', () => edit((l) => {
       l.box = bx.id;
       if (bx.id !== 'none' && l.strokeW > 0 && l.boxColor === l.stroke) l.strokeW = 0;
@@ -1211,7 +1211,7 @@ function buildStickers() {
     const b = el('button', 'chip', name);
     b.type = 'button';
     b.dataset.cat = name;
-    const [c, d] = CANDY[(i + 3) % CANDY.length];
+    const [c, d] = INKS[(i + 3) % INKS.length];
     b.style.setProperty('--chip', c);
     b.style.setProperty('--chip-side', d);
     b.addEventListener('click', () => show(name));
@@ -1449,7 +1449,7 @@ function confetti(from, count = 140) {
   ctx.scale(dpr, dpr);
   const r = from ? from.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
   const ox = r.left + r.width / 2; const oy = r.top + r.height / 2;
-  const colors = CANDY.map((p) => p[0]).concat(['#ffffff']);
+  const colors = INKS.map((p) => p[0]).concat(['#ffffff']);
   const bits = Array.from({ length: count }, () => ({
     x: ox, y: oy,
     vx: (Math.random() - 0.5) * 16, vy: -Math.random() * 16 - 6,
@@ -1483,7 +1483,7 @@ function buildHero() {
   const art = $('titleArt');
   Array.from('Toptext').forEach((ch, i) => {
     const letter = el('span', 'letter', ch);
-    const [c, d] = CANDY[(i + 2) % CANDY.length];
+    const [c, d] = INKS[(i + 2) % INKS.length];
     letter.style.setProperty('--c', c);
     letter.style.setProperty('--d', d);
     letter.style.setProperty('--i', i);
@@ -1513,7 +1513,7 @@ function buildHero() {
     f.style.setProperty('--t', t + 's');
     f.style.setProperty('--w', -i * 1.3 + 's');
     f.style.setProperty('--r0', ((i % 3) - 1) * 10 + 'deg');
-    f.style.setProperty('--c', CANDY[i % CANDY.length][0]);
+    f.style.setProperty('--c', INKS[i % INKS.length][0]);
     wrap.appendChild(f);
   });
 
