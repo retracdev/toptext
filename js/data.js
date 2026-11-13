@@ -1,8 +1,9 @@
 // Static content for Toptext: fonts, colors, stickers, caption ideas, effect presets, layouts and starters.
 
-export const CANDY = [
-  ['#35d6c8', '#12877c'], ['#ab8fff', '#6442c9'], ['#ff7eb6', '#c0407b'],
-  ['#ffc93c', '#bd8406'], ['#ff8360', '#bf4526'], ['#93e571', '#479c2c'],
+// The Toptext print-shop inks: [color, darker edge].
+export const INKS = [
+  ['#ffe14d', '#b89a00'], ['#ff4a3d', '#a8221a'], ['#3d7bff', '#1d47b8'],
+  ['#2fe0a0', '#11946a'], ['#ff8a1f', '#b35400'], ['#f5efe0', '#a39b8a'],
 ];
 
 // `family` is what the canvas draws with. Fonts from Google load on first use.
