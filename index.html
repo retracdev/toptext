@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Toptext · retrac.space</title>
   <meta name="description" content="Put words on any picture. Captions, stickers, frames and deep-fried effects. Part of the retrac.space collection.">
-  <meta name="theme-color" content="#0e0d0b">
+  <meta name="theme-color" content="#0b0d1f">
   <meta property="og:title" content="Toptext">
   <meta property="og:description" content="Put words on any picture. Part of the retrac.space collection.">
   <meta property="og:type" content="website">
@@ -13,10 +13,11 @@
   <link rel="preload" href="assets/fonts/bagel-fat-one-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Archivo+Black&family=Bangers&family=Bebas+Neue&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Creepster&family=DM+Serif+Display&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bangers&family=Bebas+Neue&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Creepster&family=DM+Serif+Display&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&family=Outfit:wght@400;500;600;700;800&family=Titan+One&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
   <!-- Icons from Lucide (ISC License, Copyright (c) Lucide Icons and Contributors), plus a few drawn for Toptext. -->
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
     <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
@@ -78,12 +79,14 @@
     <h1 class="title">
       <span class="sr-only">Toptext</span>
       <span class="title__art" id="titleArt" aria-hidden="true"></span>
-      <span class="title__stamp" aria-hidden="true">Caption<br>studio</span>
     </h1>
     <p class="hero__tag">Put words on any picture. Make it <em>funny</em>.</p>
     <p class="hero__badge"><span>NEW</span> Brand new on retrac.space</p>
-    <div class="ribbon" aria-hidden="true">
-      <div class="ribbon__track" id="ribbonTrack"></div>
+    <div class="typer" aria-hidden="true">
+      <span class="typer__bubble">
+        <span class="typer__label">idea</span>
+        <span class="typer__text" id="typerText"></span><span class="typer__caret"></span>
+      </span>
     </div>
   </section>
 
@@ -171,6 +174,7 @@
 
     <aside class="panel" aria-label="Tools">
       <nav class="tabs" role="tablist" aria-label="Tools">
+        <span class="tabs__thumb" aria-hidden="true"></span>
         <button class="tab" role="tab" type="button" data-tab="start" aria-selected="true"><svg class="ico" aria-hidden="true"><use href="#i-start"/></svg><span>Start</span></button>
         <button class="tab" role="tab" type="button" data-tab="words" aria-selected="false"><svg class="ico" aria-hidden="true"><use href="#i-type"/></svg><span>Words</span></button>
         <button class="tab" role="tab" type="button" data-tab="stickers" aria-selected="false"><svg class="ico" aria-hidden="true"><use href="#i-smile"/></svg><span>Stickers</span></button>

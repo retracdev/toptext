@@ -1,6 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect x="5" y="5" width="25" height="25" rx="4" fill="#ff4a3d"/>
-  <rect x="2" y="2" width="25" height="25" rx="4" fill="#ffe14d" stroke="#0e0d0b" stroke-width="2"/>
-  <rect x="7" y="7" width="15" height="4" rx="1" fill="#0e0d0b"/>
-  <rect x="7" y="18" width="15" height="4" rx="1" fill="#0e0d0b"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffbe5c"/><stop offset=".5" stop-color="#ff7a5c"/><stop offset="1" stop-color="#ff5fa8"/>
+    </linearGradient>
+  </defs>
+  <path d="M8 5h16a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H13l-6 5v-5.3A6 6 0 0 1 2 19v-8a6 6 0 0 1 6-6z" fill="#b02f52" transform="translate(0 1.5)"/>
+  <path d="M8 3h16a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H13l-6 5v-5.3A6 6 0 0 1 2 17V9a6 6 0 0 1 6-6z" fill="url(#g)"/>
+  <rect x="8" y="8.5" width="16" height="3" rx="1.5" fill="#fff"/>
+  <rect x="8" y="14.5" width="11" height="3" rx="1.5" fill="#fff"/>
 </svg>

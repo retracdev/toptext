@@ -669,8 +669,8 @@ function buildInspector() {
     const b = el('button', 'chip', bx.label);
     b.type = 'button';
     b.dataset.box = bx.id;
-    b.style.setProperty('--chip', '#2fe0a0');
-    b.style.setProperty('--chip-side', '#11946a');
+    b.style.setProperty('--chip', '#4cc9ff');
+    b.style.setProperty('--chip-side', '#1886b8');
     b.addEventListener('click', () => edit((l) => {
       l.box = bx.id;
       if (bx.id !== 'none' && l.strokeW > 0 && l.boxColor === l.stroke) l.strokeW = 0;
@@ -730,7 +730,9 @@ function buildInspector() {
 
 function openTab(name) {
   currentTab = name;
-  document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
+  document.querySelector('.tabs').style.setProperty('--tab', Math.max(0, tabs.findIndex((t) => t.dataset.tab === name)));
   document.querySelectorAll('.tabpanel').forEach((p) => { p.hidden = p.dataset.panel !== name; });
   if (name === 'effects') buildPresetThumbs();
   if (name === 'words') syncSliders();
@@ -1481,10 +1483,17 @@ function confetti(from, count = 140) {
 
 function buildHero() {
   const art = $('titleArt');
+  // Each letter is a glossy gradient over a darker extruded copy of itself.
+  const JELLY = [
+    ['#ffb199', '#ff5a4f', '#a82a20'], ['#ffd28a', '#ff9a2e', '#a85b08'], ['#fff3a8', '#ffd23f', '#9c7a05'],
+    ['#b5ecff', '#38b6ff', '#105f99'], ['#c8c8ff', '#7070ff', '#33339e'], ['#ffc2e1', '#ff5fa8', '#9e2a63'],
+  ];
   Array.from('Toptext').forEach((ch, i) => {
     const letter = el('span', 'letter', ch);
-    const [c, d] = INKS[(i + 2) % INKS.length];
-    letter.style.setProperty('--c', c);
+    const [c1, c2, d] = JELLY[i % JELLY.length];
+    letter.dataset.ch = ch;
+    letter.style.setProperty('--c1', c1);
+    letter.style.setProperty('--c2', c2);
     letter.style.setProperty('--d', d);
     letter.style.setProperty('--i', i);
     letter.style.setProperty('--tw', (i % 2 ? 2.6 : -2.6) + 'deg');
@@ -1517,16 +1526,23 @@ function buildHero() {
     wrap.appendChild(f);
   });
 
-  const track = $('ribbonTrack');
-  const set = el('div', 'ribbon__set');
-  for (let i = 0; i < 2; i++) {
-    RIBBON_WORDS.forEach((w) => {
-      set.appendChild(el('span', 'ribbon__word', w));
-      set.appendChild(el('span', 'ribbon__star', '✦'));
-    });
+  runTyper();
+}
+
+// Types caption ideas into the speech bubble under the title, one after another.
+async function runTyper() {
+  const out = $('typerText');
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ideas = CAPTIONS.map((p) => p.join(' / ')).concat(RIBBON_WORDS).sort(() => Math.random() - 0.5);
+  let n = 0;
+  for (;;) {
+    const line = ideas[n++ % ideas.length];
+    if (reduced) { out.textContent = line; await wait(4000); continue; }
+    for (let i = 1; i <= line.length; i++) { out.textContent = line.slice(0, i); await wait(38 + Math.random() * 40); }
+    await wait(1900);
+    for (let i = line.length; i >= 0; i--) { out.textContent = line.slice(0, i); await wait(14); }
+    await wait(350);
   }
-  track.appendChild(set);
-  track.appendChild(set.cloneNode(true));
 }
 
 // ---------- Keyboard ----------
