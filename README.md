@@ -13,12 +13,13 @@ Toptext is an image caption adder and editor: drop in a picture (or start from a
 - **Layouts**: Classic, Top bar, Bottom bar, Sandwich, Poster, Instant and Border frames. Switching layouts re-places your captions.
 - **Effects**: looks like Deep fried, Nuclear, Vintage, Noir, Vapor and Potato, plus fine-tune sliders (brightness, contrast, saturation, hue, warmth, blur, grain, pixelate, vignette, RGB split, deep fry), turning and flipping.
 - **Caption dice**: roll random captions with R.
+- **See who's online**: the top of the page lists who has Toptext open right now, and who has it in a background tab (idle), with little notices when people come online, go idle or leave. Toptext has its own count, separate from Simple Soundboard's.
 - **Your Stack**: every download is saved in this browser so you can reopen it and keep editing. Your current work autosaves too.
 - Undo / redo, keyboard shortcuts, PNG or JPG, copy to clipboard and share.
 
 ## Beta
 
-Toptext is in beta (version 0.1). The first visit shows a short beta notice, remembered with a cookie. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
+Toptext is in beta (version 0.2). The first visit shows a short beta notice, remembered with a cookie. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
 
 ## Running locally
 
