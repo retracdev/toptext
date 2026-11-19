@@ -11,7 +11,7 @@
   // The scripts between this one and js/app.js in index.html. Each calls partLoaded() as it
   // finishes running, and app.js, the last, calls codeLoaded().
   // If this falls out of step the bar still finishes: codeLoaded() always fills the code share.
-  const CODE_PARTS = 9;
+  const CODE_PARTS = 10;
   const MIN_FINISH_MS = 750;
   const MAX_FINISH_MS = 2350;
   const HOLD_AT_FULL_MS = 180; // A beat at 100% before it leaves, so the full bar registers.

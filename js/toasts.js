@@ -1,5 +1,6 @@
 /* Notices: small speech bubbles that pop into the bottom-right corner and stack. Used for
- * updates (checking, updated, failed). The app's own toasts are separate, in js/app.js.
+ * updates (checking, updated, failed) and presence (someone came online, went idle or left).
+ * The app's own toasts are separate, in js/app.js.
  *
  *   ToptextToasts.show({ text, name, icon, duration, until, key, wrap })
  *
