@@ -1,6 +1,9 @@
 // Drawing: the frame, the processed picture and every layer on top.
-import { fontById, GRADIENTS } from './data.js';
-
+// Wrapped in a function and shared through window (never top-level let/const/class), so a live
+// update can run it again in the same page. See js/live-update.js.
+(function () {
+'use strict';
+const { fontById, GRADIENTS } = window.ToptextData;
 const MAX_SIDE = 1600;
 const MIN_WIDTH = 720;
 const EMOJI_FONT = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
@@ -12,7 +15,7 @@ const canLetterSpace = (() => {
   try { return 'letterSpacing' in document.createElement('canvas').getContext('2d'); } catch { return false; }
 })();
 
-export function seeded(seed) {
+function seeded(seed) {
   let a = seed >>> 0;
   return () => {
     a = (a + 0x6D2B79F5) >>> 0;
@@ -26,7 +29,7 @@ export function seeded(seed) {
 // ---------- Geometry ----------
 
 // Works out the canvas size and where the picture sits inside the frame.
-export function geometry(doc, img) {
+function geometry(doc, img) {
   const turned = doc.rotate % 180 !== 0;
   let sw = img ? (turned ? img.height : img.width) : 1080;
   let sh = img ? (turned ? img.width : img.height) : 1080;
@@ -95,7 +98,7 @@ function loadImage(src) {
 
 // Returns a canvas of the picture with every effect applied. Deep fry is async because it
 // crushes the picture through low-quality JPEG a few times.
-export async function processPicture(img, doc, w, h, { quick = false } = {}) {
+async function processPicture(img, doc, w, h, { quick = false } = {}) {
   const f = doc.filters;
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
@@ -212,7 +215,7 @@ export async function processPicture(img, doc, w, h, { quick = false } = {}) {
 
 // ---------- Text ----------
 
-export function fontString(layer, px) {
+function fontString(layer, px) {
   const font = fontById(layer.font);
   return `${font.weight} ${px}px ${font.family}`;
 }
@@ -247,7 +250,7 @@ function wrap(ctx, text, maxWidth) {
   return out;
 }
 
-export function layoutText(ctx, layer, W) {
+function layoutText(ctx, layer, W) {
   const px = Math.max(4, layer.size * W);
   ctx.font = fontString(layer, px);
   applySpacing(ctx, layer, px);
@@ -390,7 +393,7 @@ function drawText(ctx, layer, W, H) {
 }
 
 // Turns a layer's stored position into a center point. `anchor` says whether y is the top, middle or bottom edge.
-export function placement(layer, W, H, w, h) {
+function placement(layer, W, H, w, h) {
   const cx = layer.x * W;
   let cy = layer.y * H;
   if (layer.anchor === 'top') cy += h / 2;
@@ -399,7 +402,7 @@ export function placement(layer, W, H, w, h) {
 }
 
 // The inverse of placement: a new center point back into the stored y.
-export function storeCenter(layer, cx, cy, W, H) {
+function storeCenter(layer, cx, cy, W, H) {
   const h = layer._g ? layer._g.h : 0;
   layer.x = cx / W;
   let y = cy;
@@ -452,7 +455,7 @@ function drawPicture(ctx, layer, W, H, assets) {
 
 // ---------- Compose ----------
 
-export function compose(canvas, doc, geo, picture, assets) {
+function compose(canvas, doc, geo, picture, assets) {
   const { W, H, img } = geo;
   if (canvas.width !== W) canvas.width = W;
   if (canvas.height !== H) canvas.height = H;
@@ -477,4 +480,18 @@ export function compose(canvas, doc, geo, picture, assets) {
   });
 }
 
-export { canFilter, loadImage };
+window.ToptextRender = {
+  canFilter,
+  loadImage,
+  seeded,
+  geometry,
+  processPicture,
+  fontString,
+  layoutText,
+  placement,
+  storeCenter,
+  compose,
+};
+
+if (window.ToptextSplash) window.ToptextSplash.partLoaded();
+})();

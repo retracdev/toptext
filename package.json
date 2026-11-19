@@ -1,0 +1,8 @@
+{
+  "name": "toptext",
+  "private": true,
+  "description": "Development tools for Toptext. The site itself has no dependencies or build step.",
+  "scripts": {
+    "set-version": "node scripts/set-version.cjs"
+  }
+}

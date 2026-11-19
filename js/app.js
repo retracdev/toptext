@@ -1,13 +1,16 @@
 // Toptext: put words on pictures.
-import {
+// Wrapped in a function and shared through window (never top-level let/const/class), so a live
+// update can run it again in the same page. See js/live-update.js.
+(function () {
+'use strict';
+const {
   INKS, FONTS, SOLIDS, GRADIENTS, EFFECTS, BOXES, STICKERS, CAPTIONS, FILTER_DEFAULTS,
   FILTER_SLIDERS, PRESETS, LAYOUTS, FRAME_COLORS, BLANK_SIZES, LOADING_LINES, RIBBON_WORDS,
-} from './data.js';
-import { geometry, processPicture, compose, storeCenter, fontString, loadImage } from './render.js';
-import { newDoc, textLayer, stickerLayer, pictureLayer, makeLayer, arrangeLayout, frameInk, uid } from './model.js';
-import { STARTERS, paintStarter } from './starters.js';
-import { saveDraft, loadDraft, clearDraft, listStack, addToStack, removeFromStack } from './storage.js';
-
+} = window.ToptextData;
+const { geometry, processPicture, compose, storeCenter, fontString, loadImage } = window.ToptextRender;
+const { newDoc, textLayer, stickerLayer, pictureLayer, makeLayer, arrangeLayout, frameInk, uid } = window.ToptextModel;
+const { STARTERS, paintStarter } = window.ToptextStarters;
+const { saveDraft, loadDraft, clearDraft, listStack, addToStack, removeFromStack } = window.ToptextStorage;
 const $ = (id) => document.getElementById(id);
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -1654,11 +1657,13 @@ async function boot() {
     try {
       await openProject(draft);
       resetHistory();
-      toast('Welcome back! Picked up where you left off.', {
+      // A live update hands the work over quietly. Only a real return gets the welcome back.
+      if (!draft.carried) toast('Welcome back! Picked up where you left off.', {
         action: { label: 'Start fresh', run: () => { doc = newDoc(); selectedId = null; commit(); refreshAll(); openTab('start'); } },
         ms: 5000,
       });
       openTab('words');
+      if (draft.carried) scheduleDraft(); // Saved again without the flag, for the next real visit.
     } catch {
       doc = newDoc();
     }
@@ -1667,4 +1672,59 @@ async function boot() {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(requestRender);
 }
 
+// ---------- Beta notice and live updates ----------
+
+// Shown once per browser, after the loading screen. A cookie remembers the "Got it".
+const BETA_COOKIE = 'toptext_beta_seen';
+function betaSeen() {
+  return document.cookie.split(';').some((c) => c.trim().startsWith(BETA_COOKIE + '='));
+}
+function showBetaNotice() {
+  const dialog = $('betaDialog');
+  if (!dialog || betaSeen()) { window.ToptextBetaNotice.done(); return; }
+  dialog.addEventListener('close', () => {
+    document.cookie = BETA_COOKIE + '=1; max-age=31536000; path=/; SameSite=Lax';
+    window.ToptextBetaNotice.done();
+  }, { once: true });
+  dialog.showModal();
+}
+
+// The welcome pill waits for the notice to be put away, so it isn't hidden behind it.
+window.ToptextBetaNotice = (() => {
+  const waiting = [];
+  let finished = false;
+  return {
+    done() {
+      finished = true;
+      waiting.splice(0).forEach((fn) => fn());
+    },
+    whenDone(fn) {
+      if (finished) fn();
+      else waiting.push(fn);
+    },
+  };
+})();
+
+// An update restarts the app in place, so the work in progress is saved first and picked up again.
+if (window.ToptextLiveUpdate) {
+  window.ToptextLiveUpdate.onDispose(() => {
+    clearTimeout(draftTimer);
+    if (active()) return saveDraft({ ...project(), carried: true });
+    return undefined;
+  });
+}
+
+// Asks accounts.retrac.space who's signed in while the loading screen runs.
+if (window.RetracAccount) window.RetracAccount.check();
+
 boot();
+
+const splash = window.ToptextSplash;
+if (splash) {
+  splash.whenDone(showBetaNotice);
+  // Every code part has run, so the bar can finish.
+  splash.codeLoaded();
+} else {
+  showBetaNotice();
+}
+})();

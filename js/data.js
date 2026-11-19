@@ -1,13 +1,17 @@
 // Static content for Toptext: fonts, colors, stickers, caption ideas, effect presets, layouts and starters.
+// Wrapped in a function and shared through window (never top-level let/const/class), so a live
+// update can run it again in the same page. See js/live-update.js.
+(function () {
+'use strict';
 
 // Toptext's sherbet-and-sky colors: [color, darker edge].
-export const INKS = [
+const INKS = [
   ['#ff6f61', '#c2392d'], ['#ffad42', '#c46f0c'], ['#ffe066', '#b8960f'],
   ['#4cc9ff', '#1886b8'], ['#7b7bff', '#3d3dc4'], ['#ff6fb5', '#bf3577'],
 ];
 
 // `family` is what the canvas draws with. Fonts from Google load on first use.
-export const FONTS = [
+const FONTS = [
   { id: 'classic', label: 'Classic', family: 'Impact, Anton, "Arial Narrow", sans-serif', weight: '400' },
   { id: 'plain', label: 'Plain', family: '"Helvetica Neue", Helvetica, Arial, sans-serif', weight: '700' },
   { id: 'bagel', label: 'Bagel', family: '"Bagel Fat One", sans-serif', weight: '400' },
@@ -24,15 +28,15 @@ export const FONTS = [
   { id: 'pixel', label: 'Pixel', family: '"Press Start 2P", monospace', weight: '400' },
   { id: 'creepy', label: 'Spooky', family: 'Creepster, cursive', weight: '400' },
 ];
-export const fontById = (id) => FONTS.find((f) => f.id === id) || FONTS[0];
+const fontById = (id) => FONTS.find((f) => f.id === id) || FONTS[0];
 
-export const SOLIDS = [
+const SOLIDS = [
   '#ffffff', '#000000', '#f3f0ff', '#8b86a3', '#ff4d4d', '#ff8360', '#ffc93c', '#fff36b',
   '#93e571', '#35d6c8', '#4da3ff', '#ab8fff', '#ff7eb6', '#7a4b2a',
 ];
 
 // Gradient fills, referenced as "grad:<id>".
-export const GRADIENTS = [
+const GRADIENTS = [
   { id: 'rainbow', label: 'Rainbow', dir: 'x', stops: ['#ff4d4d', '#ffc93c', '#93e571', '#35d6c8', '#4da3ff', '#ab8fff', '#ff7eb6'] },
   { id: 'fire', label: 'Fire', dir: 'y', stops: ['#fff36b', '#ffb020', '#ff4d1a', '#c4140c'] },
   { id: 'ocean', label: 'Ocean', dir: 'y', stops: ['#b8fff4', '#35d6c8', '#2a6cff'] },
@@ -43,7 +47,7 @@ export const GRADIENTS = [
   { id: 'chrome', label: 'Chrome', dir: 'y', stops: ['#ffffff', '#c9cfe0', '#5a607a', '#e6ebff', '#9aa2bf'] },
 ];
 
-export const EFFECTS = [
+const EFFECTS = [
   { id: 'none', label: 'None' },
   { id: 'shadow', label: 'Shadow' },
   { id: 'extrude', label: '3D' },
@@ -51,7 +55,7 @@ export const EFFECTS = [
   { id: 'neon', label: 'Neon' },
 ];
 
-export const BOXES = [
+const BOXES = [
   { id: 'none', label: 'None' },
   { id: 'box', label: 'Box' },
   { id: 'lines', label: 'Highlight' },
@@ -59,7 +63,7 @@ export const BOXES = [
   { id: 'bubble', label: 'Bubble' },
 ];
 
-export const STICKERS = {
+const STICKERS = {
   Faces: ['😂', '🤣', '😭', '💀', '😎', '🥹', '😳', '🤨', '😐', '🫠', '🙃', '😤', '🤡', '🥴', '😈', '🤯', '🥶', '🥵', '😬', '🫡', '🤓', '🧐', '😴', '🤔', '😏', '🙄', '🗿', '👀'],
   Hands: ['👍', '👎', '👌', '🤌', '👏', '🙌', '🙏', '💪', '🫵', '👉', '👈', '☝️', '✌️', '🤞', '🤷', '🤦', '💅', '🫶'],
   Things: ['🔥', '💯', '✨', '💥', '💫', '⭐', '🌈', '☀️', '🌧️', '⚡', '💸', '🍕', '🍟', '🌮', '☕', '🧃', '🎉', '🎂', '🏆', '👑', '💎', '🧠', '🫀', '🚀', '🛸', '🦆', '🐸', '🐈', '🐶', '🦖', '🍌', '🥔'],
@@ -67,7 +71,7 @@ export const STICKERS = {
 };
 
 // Top and bottom pairs for the caption dice.
-export const CAPTIONS = [
+const CAPTIONS = [
   ['when the wifi drops for 0.2 seconds', 'and you lose everything'],
   ['pov:', 'you said "one more episode"'],
   ['me explaining my plan', 'the plan: 🤷'],
@@ -101,12 +105,12 @@ export const CAPTIONS = [
 ];
 
 // Effect presets set every image filter value at once.
-export const FILTER_DEFAULTS = {
+const FILTER_DEFAULTS = {
   brightness: 0, contrast: 0, saturate: 0, hue: 0, warmth: 0, blur: 0,
   noise: 0, pixelate: 0, vignette: 0, rgbsplit: 0, deepfry: 0, grayscale: 0, sepia: 0, invert: 0,
 };
 
-export const FILTER_SLIDERS = [
+const FILTER_SLIDERS = [
   { id: 'brightness', label: 'Brightness', min: -100, max: 100 },
   { id: 'contrast', label: 'Contrast', min: -100, max: 100 },
   { id: 'saturate', label: 'Saturation', min: -100, max: 100 },
@@ -120,7 +124,7 @@ export const FILTER_SLIDERS = [
   { id: 'deepfry', label: 'Deep fry', min: 0, max: 100, hot: true },
 ];
 
-export const PRESETS = [
+const PRESETS = [
   { id: 'original', label: 'Original', emoji: '🖼️', values: {} },
   { id: 'fried', label: 'Deep fried', emoji: '🍟', values: { deepfry: 70, saturate: 40, contrast: 25, noise: 20 } },
   { id: 'nuclear', label: 'Nuclear', emoji: '☢️', values: { deepfry: 100, saturate: 90, contrast: 60, noise: 45, rgbsplit: 35, vignette: 40 } },
@@ -135,7 +139,7 @@ export const PRESETS = [
   { id: 'sunny', label: 'Golden', emoji: '🌅', values: { warmth: 60, saturate: 25, brightness: 6, vignette: 20 } },
 ];
 
-export const LAYOUTS = [
+const LAYOUTS = [
   { id: 'classic', label: 'Classic', hint: 'Words on the picture' },
   { id: 'top', label: 'Top bar', hint: 'A caption above' },
   { id: 'bottom', label: 'Bottom bar', hint: 'A caption below' },
@@ -146,16 +150,16 @@ export const LAYOUTS = [
   { id: 'free', label: 'Freestyle', hint: 'Just the picture' },
 ];
 
-export const FRAME_COLORS = ['#ffffff', '#000000', '#f3f0ff', '#14111f', '#ffc93c', '#ff7eb6', '#35d6c8', '#ab8fff', '#ff8360', '#93e571'];
+const FRAME_COLORS = ['#ffffff', '#000000', '#f3f0ff', '#14111f', '#ffc93c', '#ff7eb6', '#35d6c8', '#ab8fff', '#ff8360', '#93e571'];
 
-export const BLANK_SIZES = [
+const BLANK_SIZES = [
   { id: 'square', label: 'Square', w: 1080, h: 1080 },
   { id: 'portrait', label: 'Tall', w: 1080, h: 1350 },
   { id: 'wide', label: 'Wide', w: 1600, h: 900 },
   { id: 'story', label: 'Story', w: 1080, h: 1920 },
 ];
 
-export const LOADING_LINES = [
+const LOADING_LINES = [
   'Kerning the punchline…',
   'Thickening the outlines…',
   'Consulting the group chat…',
@@ -168,7 +172,30 @@ export const LOADING_LINES = [
   'Rendering at maximum giggle…',
 ];
 
-export const RIBBON_WORDS = [
+const RIBBON_WORDS = [
   'top text', 'bottom text', 'pov:', 'nobody:', 'me at 2am', 'deep fried', 'add a sticker', 'big words',
   'small words', 'caption everything', 'outline it', 'this is fine', 'how it started', 'make it funny',
 ];
+
+window.ToptextData = {
+  INKS,
+  FONTS,
+  fontById,
+  SOLIDS,
+  GRADIENTS,
+  EFFECTS,
+  BOXES,
+  STICKERS,
+  CAPTIONS,
+  FILTER_DEFAULTS,
+  FILTER_SLIDERS,
+  PRESETS,
+  LAYOUTS,
+  FRAME_COLORS,
+  BLANK_SIZES,
+  LOADING_LINES,
+  RIBBON_WORDS,
+};
+
+if (window.ToptextSplash) window.ToptextSplash.partLoaded();
+})();
