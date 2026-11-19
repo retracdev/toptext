@@ -1,6 +1,9 @@
 // Starters: backgrounds painted in code, each with a few layers to begin from.
-import { seeded } from './render.js';
-
+// Wrapped in a function and shared through window (never top-level let/const/class), so a live
+// update can run it again in the same page. See js/live-update.js.
+(function () {
+'use strict';
+const { seeded } = window.ToptextRender;
 function sunburst(ctx, w, h, a, b, rays = 24) {
   ctx.fillStyle = a;
   ctx.fillRect(0, 0, w, h);
@@ -46,7 +49,7 @@ function blob(ctx, x, y, r, color) {
 const T = (text, o = {}) => ({ type: 'text', text, ...o });
 const S = (emoji, o = {}) => ({ type: 'sticker', emoji, ...o });
 
-export const STARTERS = [
+const STARTERS = [
   {
     id: 'sunburst', label: 'Sunburst', w: 1080, h: 1080, layout: 'classic', captions: true,
     paint(ctx, w, h) { sunburst(ctx, w, h, '#ffc93c', '#ffb020'); },
@@ -189,9 +192,17 @@ export const STARTERS = [
   },
 ];
 
-export function paintStarter(starter, w, h) {
+function paintStarter(starter, w, h) {
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
   starter.paint(c.getContext('2d'), w, h);
   return c;
 }
+
+window.ToptextStarters = {
+  STARTERS,
+  paintStarter,
+};
+
+if (window.ToptextSplash) window.ToptextSplash.partLoaded();
+})();

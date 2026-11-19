@@ -1,10 +1,13 @@
 // The document: what's in a creation, and how layouts place their captions.
-import { FILTER_DEFAULTS } from './data.js';
-
+// Wrapped in a function and shared through window (never top-level let/const/class), so a live
+// update can run it again in the same page. See js/live-update.js.
+(function () {
+'use strict';
+const { FILTER_DEFAULTS } = window.ToptextData;
 let counter = 0;
-export const uid = (p = 'l') => p + Date.now().toString(36) + (counter++).toString(36);
+const uid = (p = 'l') => p + Date.now().toString(36) + (counter++).toString(36);
 
-export function newDoc() {
+function newDoc() {
   return {
     v: 1,
     base: null, // asset id of the picture
@@ -18,7 +21,7 @@ export function newDoc() {
 
 const COMMON = { x: 0.5, y: 0.5, anchor: 'middle', rot: 0, opacity: 1, hidden: false, effect: 'none' };
 
-export function textLayer(o = {}) {
+function textLayer(o = {}) {
   return {
     ...COMMON,
     id: uid('t'), type: 'text', text: 'your words here',
@@ -29,15 +32,15 @@ export function textLayer(o = {}) {
   };
 }
 
-export function stickerLayer(o = {}) {
+function stickerLayer(o = {}) {
   return { ...COMMON, id: uid('s'), type: 'sticker', emoji: '😂', size: 0.22, flip: false, ...o };
 }
 
-export function pictureLayer(o = {}) {
+function pictureLayer(o = {}) {
   return { ...COMMON, id: uid('p'), type: 'picture', asset: null, size: 0.4, flip: false, ...o };
 }
 
-export function makeLayer(spec) {
+function makeLayer(spec) {
   if (spec.type === 'sticker') return stickerLayer(spec);
   if (spec.type === 'picture') return pictureLayer(spec);
   return textLayer(spec);
@@ -85,7 +88,7 @@ function slots(layout, geo, frameColor) {
 }
 
 // Places existing captions into the layout's slots, restyling them. Creates captions only when there are none.
-export function arrangeLayout(doc, geo, { create = true, positionsOnly = false } = {}) {
+function arrangeLayout(doc, geo, { create = true, positionsOnly = false } = {}) {
   const list = slots(doc.layout, geo, doc.frame.color);
   if (!list.length) return;
   const texts = doc.layers.filter((l) => l.type === 'text');
@@ -103,4 +106,18 @@ export function arrangeLayout(doc, geo, { create = true, positionsOnly = false }
   });
 }
 
-export function frameInk(color) { return ink(color); }
+function frameInk(color) { return ink(color); }
+
+window.ToptextModel = {
+  uid,
+  newDoc,
+  textLayer,
+  stickerLayer,
+  pictureLayer,
+  makeLayer,
+  arrangeLayout,
+  frameInk,
+};
+
+if (window.ToptextSplash) window.ToptextSplash.partLoaded();
+})();

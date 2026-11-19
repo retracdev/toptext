@@ -1,4 +1,8 @@
 // IndexedDB: the working draft and the Stack of finished pictures. Everything stays on this device.
+// Wrapped in a function and shared through window (never top-level let/const/class), so a live
+// update can run it again in the same page. See js/live-update.js.
+(function () {
+'use strict';
 const DB_NAME = 'toptext';
 const STACK_LIMIT = 60;
 let dbPromise = null;
@@ -29,18 +33,18 @@ function run(store, mode, fn) {
   }));
 }
 
-export const saveDraft = (project) => run('kv', 'readwrite', (s) => s.put(project, 'draft')).catch(() => {});
-export const loadDraft = () => run('kv', 'readonly', (s) => s.get('draft')).catch(() => null);
-export const clearDraft = () => run('kv', 'readwrite', (s) => s.delete('draft')).catch(() => {});
+const saveDraft = (project) => run('kv', 'readwrite', (s) => s.put(project, 'draft')).catch(() => {});
+const loadDraft = () => run('kv', 'readonly', (s) => s.get('draft')).catch(() => null);
+const clearDraft = () => run('kv', 'readwrite', (s) => s.delete('draft')).catch(() => {});
 
-export async function listStack() {
+async function listStack() {
   try {
     const items = await run('stack', 'readonly', (s) => s.getAll());
     return (items || []).sort((a, b) => b.ts - a.ts);
   } catch { return []; }
 }
 
-export async function addToStack(item) {
+async function addToStack(item) {
   await run('stack', 'readwrite', (s) => s.put(item));
   const items = await listStack();
   if (items.length > STACK_LIMIT) {
@@ -49,4 +53,16 @@ export async function addToStack(item) {
   }
 }
 
-export const removeFromStack = (id) => run('stack', 'readwrite', (s) => s.delete(id));
+const removeFromStack = (id) => run('stack', 'readwrite', (s) => s.delete(id));
+
+window.ToptextStorage = {
+  saveDraft,
+  loadDraft,
+  clearDraft,
+  listStack,
+  addToStack,
+  removeFromStack,
+};
+
+if (window.ToptextSplash) window.ToptextSplash.partLoaded();
+})();

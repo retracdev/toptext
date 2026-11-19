@@ -16,6 +16,10 @@ Toptext is an image caption adder and editor: drop in a picture (or start from a
 - **Your Stack**: every download is saved in this browser so you can reopen it and keep editing. Your current work autosaves too.
 - Undo / redo, keyboard shortcuts, PNG or JPG, copy to clipboard and share.
 
+## Beta
+
+Toptext is in beta (version 0.1). The first visit shows a short beta notice, remembered with a cookie. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
+
 ## Running locally
 
 It's a static site with no build step. Serve the folder with any static server, for example:
@@ -24,8 +28,19 @@ It's a static site with no build step. Serve the folder with any static server, 
 npx serve .
 ```
 
-ES modules don't load from `file://`, so opening `index.html` directly won't work.
+Live updates fetch `version.yml`, so opening `index.html` straight from `file://` won't work.
+
+## Publishing an update
+
+Open tabs update themselves in place, without reloading, through `js/live-update.js` (the same system as Simple Soundboard):
+
+- Raise the version in `version.yml`. The "Sync version" workflow copies it into `<meta name="toptext-version">` in `index.html` on `main` (locally, `npm run set-version` does the same). Open tabs check every 30 seconds and only install a page whose meta matches `version.yml`.
+- The footer's **Check for Updates** button fetches the newest copy right away.
+- Keep every file in `js/` wrapped in a function, and share things between files through `window` properties. Don't add top-level `let`, `const` or `class`, or ES modules, because updates run each script again in the same page.
+- Scripts between `js/splash.js` and `js/app.js` call `ToptextSplash.partLoaded()` when they finish; if you add one, raise `CODE_PARTS` in `js/splash.js`.
+- Anything that must be put away when the app is replaced registers `window.ToptextLiveUpdate.onDispose(fn)`. Listeners on `window`/`document`, timers, observers, fetches and Web Locks are cleaned up automatically.
+- `js/live-update.js` itself is never replaced by a live update. Changes to it reach visitors on their next real page load.
 
 ## Deploying
 
-GitHub Pages from the `main` branch root. Add a `CNAME` file once the domain is set up.
+GitHub Pages from the `main` branch root (`toptext.retrac.space`).

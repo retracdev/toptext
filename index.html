@@ -1,8 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="is-splashing">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Copied from version.yml by the "Sync version" workflow. Edit version.yml, not this. -->
+  <meta name="toptext-version" content="0.1">
+  <!-- Live updates. Loads first so it can track and shut down everything the app starts. -->
+  <script src="js/live-update.js" data-live-update></script>
   <title>Toptext · retrac.space</title>
   <meta name="description" content="Put words on any picture. Captions, stickers, frames and deep-fried effects. Part of the retrac.space collection.">
   <meta name="theme-color" content="#0b0d1f">
@@ -15,8 +19,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bangers&family=Bebas+Neue&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Creepster&family=DM+Serif+Display&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&family=Outfit:wght@400;500;600;700;800&family=Titan+One&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <noscript><style>.splash { display: none; } html.is-splashing { overflow: auto; }</style></noscript>
 </head>
 <body>
+  <!-- The loading screen. js/splash.js fills the bar and takes it away. Live updates show it again (data-update-splash). -->
+  <div class="splash" id="splash" data-update-splash role="progressbar" aria-label="Loading Toptext" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <img class="splash__icon" src="assets/favicon.svg" alt="" width="112" height="112">
+    <div class="splash__track"><div class="splash__fill"></div></div>
+  </div>
+
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
   <!-- Icons from Lucide (ISC License, Copyright (c) Lucide Icons and Contributors), plus a few drawn for Toptext. -->
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
@@ -80,6 +91,7 @@
       <span class="sr-only">Toptext</span>
       <span class="title__art" id="titleArt" aria-hidden="true"></span>
     </h1>
+    <p class="beta-tag"><span>BETA</span></p>
     <p class="hero__tag">Put words on any picture. Make it <em>funny</em>.</p>
     <p class="hero__badge"><span>NEW</span> Brand new on retrac.space</p>
     <div class="typer" aria-hidden="true">
@@ -323,6 +335,10 @@
 
   <footer class="footer">
     <p>Toptext is part of the <a href="https://retrac.space">retrac.space</a> collection. Your pictures never leave your device.</p>
+    <button class="footer__update" id="checkUpdates" type="button" hidden>
+      <svg class="footer__update-spinner" aria-hidden="true"><use href="#i-loader"/></svg>
+      <span id="checkUpdatesLabel">Check for Updates</span>
+    </button>
   </footer>
 
   <!-- Stack -->
@@ -357,6 +373,19 @@
     </dl>
   </dialog>
 
+  <!-- Beta notice: shown once per browser (a cookie remembers it), after the loading screen. -->
+  <dialog class="sheet sheet--small beta" id="betaDialog" aria-labelledby="betaTitle" aria-describedby="betaBody">
+    <span class="beta__badge">BETA</span>
+    <h2 class="beta__title" id="betaTitle">Toptext is in beta. Bugs may occur.</h2>
+    <div class="beta__body" id="betaBody">
+      <p>Hi everyone! I've decided to release Toptext, although not all the features are ready yet. I've learned my lessons from Simple Soundboard, and Toptext will automatically update for you, so you can always have the newest version. I hope you have fun, and go make something funny! Look for more features like sharing coming soon.</p>
+      <p class="beta__signoff">Regards,<br>Retrac</p>
+    </div>
+    <button class="key3d key3d--primary beta__ok" type="button" data-close autofocus>
+      <span class="key3d__face">Got it</span>
+    </button>
+  </dialog>
+
   <!-- Export -->
   <div class="cooking" id="cooking" hidden>
     <div class="cooking__card" role="status" aria-live="polite">
@@ -375,6 +404,17 @@
   <input type="file" id="pictureInput" accept="image/*" hidden>
 
   <noscript><p class="noscript">Toptext needs JavaScript turned on.</p></noscript>
-  <script type="module" src="js/app.js"></script>
+  <!-- Plain scripts, not modules, so live updates can run them again in place. app.js goes last. -->
+  <script src="js/splash.js"></script>
+  <script src="js/toasts.js"></script>
+  <script src="js/account.js"></script>
+  <script src="js/account-welcome.js"></script>
+  <script src="js/updates.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/model.js"></script>
+  <script src="js/starters.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
