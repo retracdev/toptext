@@ -358,7 +358,7 @@ kbd {
 .tool--label { padding: 0 15px; }
 .tool--dice.is-rolling .ico { animation: roll .6s var(--spring); }
 @keyframes roll { to { transform: rotate(360deg) scale(1.15); } }
-@media (max-width: 480px) { .tool--label span { display: none; } }
+@media (max-width: 480px) { .tool--label:not(.tool--keep-label) span { display: none; } }
 
 /* ---------- Stage: a big glass tray ---------- */
 .stage {
