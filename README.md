@@ -19,7 +19,7 @@ Toptext is an image caption adder and editor: drop in a picture (or start from a
 
 ## Status
 
-Toptext is at version 1.1. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
+Toptext is at version 1.1.1. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
 
 ## Look
 
