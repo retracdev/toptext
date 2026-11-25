@@ -5,7 +5,7 @@
 'use strict';
 const {
   INKS, FONTS, SOLIDS, GRADIENTS, EFFECTS, BOXES, STICKERS, CAPTIONS, FILTER_DEFAULTS,
-  FILTER_SLIDERS, PRESETS, LAYOUTS, FRAME_COLORS, BLANK_SIZES, LOADING_LINES, RIBBON_WORDS,
+  FILTER_SLIDERS, PRESETS, LAYOUTS, FRAME_COLORS, BLANK_SIZES, LOADING_LINES,
 } = window.ToptextData;
 const { geometry, processPicture, compose, storeCenter, fontString, loadImage } = window.ToptextRender;
 const { newDoc, textLayer, stickerLayer, pictureLayer, makeLayer, arrangeLayout, frameInk, uid } = window.ToptextModel;
@@ -1482,72 +1482,6 @@ function confetti(from, count = 140) {
   requestAnimationFrame(step);
 }
 
-// ---------- Hero ----------
-
-function buildHero() {
-  const art = $('titleArt');
-  // Each letter is a glossy gradient over a darker extruded copy of itself.
-  const JELLY = [
-    ['#ffb199', '#ff5a4f', '#a82a20'], ['#ffd28a', '#ff9a2e', '#a85b08'], ['#fff3a8', '#ffd23f', '#9c7a05'],
-    ['#b5ecff', '#38b6ff', '#105f99'], ['#c8c8ff', '#7070ff', '#33339e'], ['#ffc2e1', '#ff5fa8', '#9e2a63'],
-  ];
-  Array.from('Toptext').forEach((ch, i) => {
-    const letter = el('span', 'letter', ch);
-    const [c1, c2, d] = JELLY[i % JELLY.length];
-    letter.dataset.ch = ch;
-    letter.style.setProperty('--c1', c1);
-    letter.style.setProperty('--c2', c2);
-    letter.style.setProperty('--d', d);
-    letter.style.setProperty('--i', i);
-    letter.style.setProperty('--tw', (i % 2 ? 2.6 : -2.6) + 'deg');
-    const boing = () => {
-      letter.classList.remove('is-boing');
-      void letter.offsetWidth;
-      letter.classList.add('is-boing');
-    };
-    letter.addEventListener('pointerenter', boing);
-    letter.addEventListener('animationend', (e) => { if (e.animationName === 'boing') letter.classList.remove('is-boing'); });
-    art.appendChild(letter);
-  });
-
-  const floaters = [
-    [5, 14, '2.4rem', 9, '😂'], [13, 64, '1.9rem', 11, '🔥'], [24, 10, '1rem', 8, 'TOP TEXT', 'tag'],
-    [8, 82, '.95rem', 10, 'me at 2am', 'bubble'], [82, 12, '2.2rem', 9.5, '💀'], [91, 60, '2rem', 12, '🗿'],
-    [74, 72, '1rem', 8.5, 'BOTTOM TEXT', 'tag'], [94, 22, '1.7rem', 10.5, '✨'], [30, 80, '1.6rem', 9.5, '👀'],
-    [66, 6, '.95rem', 11.5, 'pov:', 'bubble'], [52, 88, '1.5rem', 10, '💯'],
-  ];
-  const wrap = $('heroFloaters');
-  floaters.forEach(([x, y, s, t, content, kind], i) => {
-    const f = el('span', 'floater' + (kind ? ' floater--' + kind : ''), content);
-    f.style.setProperty('--x', x + '%');
-    f.style.setProperty('--y', y + '%');
-    f.style.setProperty('--s', s);
-    f.style.setProperty('--t', t + 's');
-    f.style.setProperty('--w', -i * 1.3 + 's');
-    f.style.setProperty('--r0', ((i % 3) - 1) * 10 + 'deg');
-    f.style.setProperty('--c', INKS[i % INKS.length][0]);
-    wrap.appendChild(f);
-  });
-
-  runTyper();
-}
-
-// Types caption ideas into the speech bubble under the title, one after another.
-async function runTyper() {
-  const out = $('typerText');
-  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const ideas = CAPTIONS.map((p) => p.join(' / ')).concat(RIBBON_WORDS).sort(() => Math.random() - 0.5);
-  let n = 0;
-  for (;;) {
-    const line = ideas[n++ % ideas.length];
-    if (reduced) { out.textContent = line; await wait(4000); continue; }
-    for (let i = 1; i <= line.length; i++) { out.textContent = line.slice(0, i); await wait(38 + Math.random() * 40); }
-    await wait(1900);
-    for (let i = line.length; i >= 0; i--) { out.textContent = line.slice(0, i); await wait(14); }
-    await wait(350);
-  }
-}
-
 // ---------- Keyboard ----------
 
 document.addEventListener('keydown', (e) => {
@@ -1637,7 +1571,6 @@ function wire() {
 }
 
 async function boot() {
-  buildHero();
   buildInspector();
   buildStart();
   buildStickers();
@@ -1672,38 +1605,7 @@ async function boot() {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(requestRender);
 }
 
-// ---------- Beta notice and live updates ----------
-
-// Shown once per browser, after the loading screen. A cookie remembers the "Got it".
-const BETA_COOKIE = 'toptext_beta_seen';
-function betaSeen() {
-  return document.cookie.split(';').some((c) => c.trim().startsWith(BETA_COOKIE + '='));
-}
-function showBetaNotice() {
-  const dialog = $('betaDialog');
-  if (!dialog || betaSeen()) { window.ToptextBetaNotice.done(); return; }
-  dialog.addEventListener('close', () => {
-    document.cookie = BETA_COOKIE + '=1; max-age=31536000; path=/; SameSite=Lax';
-    window.ToptextBetaNotice.done();
-  }, { once: true });
-  dialog.showModal();
-}
-
-// The welcome pill waits for the notice to be put away, so it isn't hidden behind it.
-window.ToptextBetaNotice = (() => {
-  const waiting = [];
-  let finished = false;
-  return {
-    done() {
-      finished = true;
-      waiting.splice(0).forEach((fn) => fn());
-    },
-    whenDone(fn) {
-      if (finished) fn();
-      else waiting.push(fn);
-    },
-  };
-})();
+// ---------- Live updates ----------
 
 // An update restarts the app in place, so the work in progress is saved first and picked up again.
 if (window.ToptextLiveUpdate) {
@@ -1720,11 +1622,6 @@ if (window.RetracAccount) window.RetracAccount.check();
 boot();
 
 const splash = window.ToptextSplash;
-if (splash) {
-  splash.whenDone(showBetaNotice);
-  // Every code part has run, so the bar can finish.
-  splash.codeLoaded();
-} else {
-  showBetaNotice();
-}
+// Every code part has run, so the bar can finish.
+if (splash) splash.codeLoaded();
 })();

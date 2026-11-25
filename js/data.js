@@ -172,11 +172,6 @@ const LOADING_LINES = [
   'Rendering at maximum giggle…',
 ];
 
-const RIBBON_WORDS = [
-  'top text', 'bottom text', 'pov:', 'nobody:', 'me at 2am', 'deep fried', 'add a sticker', 'big words',
-  'small words', 'caption everything', 'outline it', 'this is fine', 'how it started', 'make it funny',
-];
-
 window.ToptextData = {
   INKS,
   FONTS,
@@ -194,7 +189,6 @@ window.ToptextData = {
   FRAME_COLORS,
   BLANK_SIZES,
   LOADING_LINES,
-  RIBBON_WORDS,
 };
 
 if (window.ToptextSplash) window.ToptextSplash.partLoaded();

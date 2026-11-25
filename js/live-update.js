@@ -691,7 +691,7 @@
   }
 
   // A restart now would get in someone's way: the tab is hidden, the app is still loading, or
-  // a dialog (the beta notice, Your Stack) is open. Automatic updates wait for a better moment.
+  // a dialog (Your Stack, Shortcuts) is open. Automatic updates wait for a better moment.
   function interrupting() {
     return document.hidden || Boolean(document.querySelector('dialog[open], [data-update-splash]'));
   }
