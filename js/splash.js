@@ -2,7 +2,7 @@
  * The loading screen. The Toptext logo pops up on black with a bar under it. The bar fills to
  * 25% as the code parts (the scripts after this one) run, then runs on to 100% over a random
  * 0.75 to 2.35 seconds. At 100% the screen fades away, the studio rises in, and anything
- * waiting on whenDone() (the beta notice, the welcome pill) gets its turn.
+ * waiting on whenDone() (the welcome pill) gets its turn.
  */
 (function () {
   'use strict';

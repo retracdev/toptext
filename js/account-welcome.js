@@ -54,14 +54,11 @@
     showWelcomePill(state.username);
   }
 
-  // Not until the loading screen and the beta notice have gone, so the pill isn't hidden behind them.
+  // Not until the loading screen has gone, so the pill isn't hidden behind it.
   const splash = window.ToptextSplash;
   (splash ? splash.whenDone : (fn) => fn())(() => {
-    const beta = window.ToptextBetaNotice;
-    (beta ? beta.whenDone : (fn) => fn())(() => {
-      window.RetracAccount.subscribe(greet);
-      greet(window.RetracAccount.getState());
-    });
+    window.RetracAccount.subscribe(greet);
+    greet(window.RetracAccount.getState());
   });
 
   if (window.ToptextSplash) window.ToptextSplash.partLoaded();

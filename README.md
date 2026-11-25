@@ -17,9 +17,13 @@ Toptext is an image caption adder and editor: drop in a picture (or start from a
 - **Your Stack**: every download is saved in this browser so you can reopen it and keep editing. Your current work autosaves too.
 - Undo / redo, keyboard shortcuts, PNG or JPG, copy to clipboard and share.
 
-## Beta
+## Status
 
-Toptext is in beta (version 0.2). The first visit shows a short beta notice, remembered with a cookie. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
+Toptext is at version 1.1. Visitors signed in to their retrac.space account get a welcome pill at the top. Account features like cloud saves, favorites and sharing aren't here yet.
+
+## Look
+
+"Liquid glass": a warm near-black page lit by soft amber glows, frosted glass panels with thin bright rims, and orange glass for whatever is active. The app icon (`assets/favicon.svg`) uses the same two layers: a frosted white post card on an orange tile, with orange glass "top text" and "bottom text" bars on top. The interface is set in Inter; caption fonts are separate.
 
 ## Running locally
 
